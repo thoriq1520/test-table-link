@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./proto/user";
+//protoc --go_out=. --go-grpc_out=. proto/user.proto
+service UserService {
+
+  rpc GetAllUsers(GetAllUserRequest) returns (GetAllUserResponse);
+  rpc Create(CreateRequest) returns (DefaultResponse);
+  rpc Update(UpdateRequest) returns (DefaultResponse);
+  rpc Delete(DeleteRequest) returns (DefaultResponse);
+}
+
+message GetAllUserRequest{
+  string data = 1;
+}
+
+message GetAllUserResponse{
+  bool status =1;
+  string message =2;
+  repeated UserResponse data = 3;
+
+}
+
+message UserResponse {
+  string role_id = 1;
+  string role_name = 2;
+  string name = 3;
+  string email =4;
+  string last_access =5;
+}
+
+message CreateRequest{
+  int64 role_id = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+}
+
+message UpdateRequest{
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message DeleteRequest {
+  string user_id = 1;
+}
+
+message DefaultResponse{
+  bool status = 1;
+  string message = 2;
+}
